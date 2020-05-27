@@ -1,5 +1,10 @@
 package in.ac.sdmcet.ds.linkedList;
-
+/**
+ * 
+ * @author dshekhar
+ *
+ * @param <T>
+ */
 public class SingleLinkedList<T> implements LinkedList<T> {
 	private SingleLinkedNode<T> head = null;
 

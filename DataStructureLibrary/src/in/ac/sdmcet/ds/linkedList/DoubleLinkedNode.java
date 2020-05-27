@@ -1,5 +1,10 @@
 package in.ac.sdmcet.ds.linkedList;
-
+/**
+ * 
+ * @author dshekhar
+ *
+ * @param <T>
+ */
 public class DoubleLinkedNode<T> {
 
 	private DoubleLinkedNode<T> next = null;

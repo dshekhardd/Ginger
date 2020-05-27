@@ -4,7 +4,7 @@
 package in.ac.sdmcet.ds.linkedList;
 
 /**
- * @author dshekhar
+ * @author dshekhar 
  *
  */
 public class SingleLinkedNode<T> {
