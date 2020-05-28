@@ -9,12 +9,12 @@ public class DoubleLinkedList<T> implements LinkedList<T> {
 	}
 
 	@Override
-	public T remove(T i) {
+	public T remove(int i) {
 		return null;
 	}
 
 	@Override
-	public SingleLinkedNode<T> get(T i) {
+	public T get(int i) {
 		return null;
 	}
 
