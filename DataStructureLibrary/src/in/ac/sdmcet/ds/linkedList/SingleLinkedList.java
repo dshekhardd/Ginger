@@ -32,6 +32,10 @@ class SingleLinkedList<T> implements LinkedList<T> {
 		SingleLinkedNode<T> temp = null;
 		SingleLinkedNode<T> trav = null;
 		SingleLinkedNode<T> dump = null;
+		if(head == null) {
+			System.out.println("List is empty");
+			return null;
+		}
 		if(i == 1) {
 			head = null;
 			return null;
@@ -55,6 +59,10 @@ class SingleLinkedList<T> implements LinkedList<T> {
 		SingleLinkedNode<T> trav = null;
 		trav = head;
 		int myItr = 0;
+		if(head == null) {
+			System.out.println("List is empty");
+			return null;
+		}
 		for(myItr=0; myItr < i; myItr++) {
 			trav = trav.getNext();
 		}
