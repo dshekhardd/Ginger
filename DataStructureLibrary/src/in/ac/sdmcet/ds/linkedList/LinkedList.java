@@ -8,7 +8,7 @@ package in.ac.sdmcet.ds.linkedList;
  *
  */
 public interface LinkedList<T> {
-	public void add(T data);
+	public void add(T data); 
 
 	public T remove(int i);
 
