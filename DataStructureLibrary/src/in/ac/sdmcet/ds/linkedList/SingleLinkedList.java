@@ -36,54 +36,62 @@ public class SingleLinkedList<T> implements LinkedList<T> {
 		}
 	}
 
+	
+	////This  methods deletes  the element at the specified index starting from '0' 
 	@Override
-	public T remove(T i) throws MyException{
+	public T remove(int i) throws MyException{
 		if(head == null) {
 			throw new MyException("The List is Empty nothing to remove");
 		}
 		
 		
-		SingleLinkedNode<T> prev = head;
-		SingleLinkedNode<T> node = head.getNext();
+		SingleLinkedNode<T> prev = null;
+		SingleLinkedNode<T> node = head;
 		
 		
-		if(prev.getData()==i) {
-			head = prev.getNext();
-			return prev.getData();
+		if(i==0) {
+			head = node.getNext();
+			return node.getData();
 		}
-		
+		int n=0;
 		while(node!=null) {
-			if(node.getData() == i) {
+			if(n==i) {
 				break;
 			}
+			prev = node;
 			node = node.getNext();
-			prev = prev.getNext();
+			n++;
 		}
 		if(node==null) {
-			throw new MyException("The List doesnt contain "+i);
+			throw new MyException("The List doesnt have the location"+i);
 		}
 		
 		prev.setNext(node.getNext());
-
-		return node.getData(); 
+		
+		return node.getData();
+		
 	}
 
-	@Override
-	public SingleLinkedNode<T> get(T i) throws MyException {
+	//This method gets the element at the specifies index 'i' starting from '0'
+	
+	@Override	
+	public T get(int i) throws MyException {
 		
 		if(head==null) {
 			throw new MyException("The List is Empty nothing to get");
 		}
 		
 		SingleLinkedNode<T> node = head;
-		
+		int n=0;
 		while(node!=null) {
-			if(node.getData()==i) {
-				return node;
+			
+			if(n==i) {
+				return node.getData();
 			}
 			node = node.getNext();
+			n++;
 		}
-		throw new MyException("The List is doesnt contain "+i);
+		throw new MyException("The List is doesnt have the location "+i);
 	}
 
 	public SingleLinkedNode<T> getHead() {
