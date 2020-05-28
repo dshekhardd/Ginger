@@ -8,8 +8,6 @@ package in.ac.sdmcet.ds.linkedList;
 public class SingleLinkedList<T> implements LinkedList<T> {
 	private SingleLinkedNode<T> head = null;
     
-	//add elements to the list
-	//test
 	@Override
 	public void add(T data) {
 		if (head == null) {
