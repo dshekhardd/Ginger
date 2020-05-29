@@ -13,4 +13,8 @@ public interface LinkedList<T> {
 	public T remove(int i);   //Removes the node from linked list
 
 	public T get(int i);      //Gets the node which has i as the data 
+  
+	public T remove(int i) throws MyException;
+
+	public T get(int i) throws MyException;
 }
