@@ -8,8 +8,12 @@ package in.ac.sdmcet.ds.linkedList;
  *
  */
 public interface LinkedList<T> {
-	public void add(T data);
+	public void add(T data);  //Adds the node to linked list
 
+	public T remove(int i);   //Removes the node from linked list
+
+	public T get(int i);      //Gets the node which has i as the data 
+  
 	public T remove(int i) throws MyException;
 
 	public T get(int i) throws MyException;
