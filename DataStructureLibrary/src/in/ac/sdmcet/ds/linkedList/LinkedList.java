@@ -7,10 +7,10 @@ package in.ac.sdmcet.ds.linkedList;
  * @author dshekhar 
  *
  */
-public interface LinkedList<T> {
-	public void add(T data); 
+interface LinkedList<T> {
+	public void add(T data);
 
-	public T remove(int i); //based on location
+	public T remove(int i) throws ListExceptions;
 
-	public T get(int i);
+	public T get(int i) throws ListExceptions;
 }
