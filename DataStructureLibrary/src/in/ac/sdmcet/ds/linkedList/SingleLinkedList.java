@@ -1,4 +1,10 @@
 package in.ac.sdmcet.ds.linkedList;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
 /**
  * 
  * @author dshekhar
@@ -6,10 +12,10 @@ package in.ac.sdmcet.ds.linkedList;
  * @param <T>
  */
 
-class MyException extends Exception{
+class LinkedListIndexOutOfBoundException extends Exception{
 	
 	private String s;
-	MyException(String s){
+	LinkedListIndexOutOfBoundException(String s){
 		this.s = s;
 	}
 	@Override
@@ -39,9 +45,9 @@ public class SingleLinkedList<T> implements LinkedList<T> {
 	
 	////This  methods deletes  the element at the specified index starting from '0' 
 	@Override
-	public T remove(int i) throws MyException{
+	public T remove(int i) throws LinkedListIndexOutOfBoundException{
 		if(head == null) {
-			throw new MyException("The List is Empty nothing to remove");
+			throw new LinkedListIndexOutOfBoundException("The List is Empty nothing to remove");
 		}
 		
 		
@@ -63,7 +69,7 @@ public class SingleLinkedList<T> implements LinkedList<T> {
 			n++;
 		}
 		if(node==null) {
-			throw new MyException("The List doesnt have the location"+i);
+			throw new LinkedListIndexOutOfBoundException("The List doesnt have the location"+i);
 		}
 		
 		prev.setNext(node.getNext());
@@ -75,10 +81,10 @@ public class SingleLinkedList<T> implements LinkedList<T> {
 	//This method gets the element at the specifies index 'i' starting from '0'
 	
 	@Override	
-	public T get(int i) throws MyException {
+	public T get(int i) throws LinkedListIndexOutOfBoundException {
 		
 		if(head==null) {
-			throw new MyException("The List is Empty nothing to get");
+			throw new LinkedListIndexOutOfBoundException("The List is Empty nothing to get");
 		}
 		
 		SingleLinkedNode<T> node = head;
@@ -91,7 +97,7 @@ public class SingleLinkedList<T> implements LinkedList<T> {
 			node = node.getNext();
 			n++;
 		}
-		throw new MyException("The List is doesnt have the location "+i);
+		throw new LinkedListIndexOutOfBoundException("The List is doesnt have the location "+i);
 	}
 
 	public SingleLinkedNode<T> getHead() {
@@ -99,4 +105,64 @@ public class SingleLinkedList<T> implements LinkedList<T> {
 		return head;
 	}
 
+	
+	//This method return true if a LinkedList has a cycle in it else returns false.
+
+	@Override
+	public boolean hasCycle() throws LinkedListIndexOutOfBoundException {
+		
+		if(head == null) {
+			throw new LinkedListIndexOutOfBoundException("The List is empty.");
+		}
+		
+		Set<SingleLinkedNode<T>> track = new HashSet<SingleLinkedNode<T>>();
+		
+		SingleLinkedNode<T> node = head;
+		
+		while(node!=null) {
+			if(node.getNext()!=null) {
+				if(track.contains(node.getNext()))
+					return true;
+				else
+					track.add(node.getNext());
+			}
+			node = node.getNext();
+		}
+		return false;
+	}
+
+	//This method returns the position of the node where the cycle begins . And if the cycle doesn't exists it returns -1
+	
+	@Override
+	public int cycleIndex() throws LinkedListIndexOutOfBoundException {
+		
+		if(head == null) {
+			throw new LinkedListIndexOutOfBoundException("The List is empty.");
+		}
+		
+		Set<SingleLinkedNode<T>> track = new HashSet<SingleLinkedNode<T>>();
+		Map<SingleLinkedNode<T>,Integer> map = new HashMap<SingleLinkedNode<T>,Integer>();
+		
+		SingleLinkedNode<T> node = head;
+		int position=0;
+		track.add(node);
+		map.put(node,position);
+		
+	
+		
+		while(node!=null) {
+			if(node.getNext()!=null) {
+				if(track.contains(node.getNext())) 
+					return map.get(node.getNext());
+				else 
+				{
+					track.add(node.getNext());
+					position++;
+					map.put(node.getNext(),position);
+				}
+			node = node.getNext();
+			}
+		}
+		return -1;
+	}
 }
