@@ -1,9 +1,6 @@
 package in.ac.sdmcet.ds.linkedList;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+
 
 /**
  * 
@@ -111,23 +108,18 @@ public class SingleLinkedList<T> implements LinkedList<T> {
 	@Override
 	public boolean hasCycle() throws LinkedListIndexOutOfBoundException {
 		
-		if(head == null) {
-			throw new LinkedListIndexOutOfBoundException("The List is empty.");
-		}
+		SingleLinkedNode<T> slow_p = head , fast_p = head;
+		int n = 0;
 		
-		Set<SingleLinkedNode<T>> track = new HashSet<SingleLinkedNode<T>>();
-		
-		SingleLinkedNode<T> node = head;
-		
-		while(node!=null) {
-			if(node.getNext()!=null) {
-				if(track.contains(node.getNext()))
+		while(fast_p.getNext() != null && fast_p.getNext().getNext()!= null) {
+			
+				if(slow_p == fast_p && n!=0) {
 					return true;
-				else
-					track.add(node.getNext());
+				}
+				slow_p = slow_p.getNext();
+				fast_p = fast_p.getNext().getNext();
+				n++;
 			}
-			node = node.getNext();
-		}
 		return false;
 	}
 
@@ -136,32 +128,29 @@ public class SingleLinkedList<T> implements LinkedList<T> {
 	@Override
 	public int cycleIndex() throws LinkedListIndexOutOfBoundException {
 		
-		if(head == null) {
-			throw new LinkedListIndexOutOfBoundException("The List is empty.");
-		}
+		SingleLinkedNode<T> slow_p = head , fast_p = head;
+		int k = 0,index=0;             // variable 'k' for avoiding the infinite loop in the first iteration when initially the pointers are pointing to head 
+		boolean isCycle = false;
 		
-		Set<SingleLinkedNode<T>> track = new HashSet<SingleLinkedNode<T>>();
-		Map<SingleLinkedNode<T>,Integer> map = new HashMap<SingleLinkedNode<T>,Integer>();
-		
-		SingleLinkedNode<T> node = head;
-		int position=0;
-		track.add(node);
-		map.put(node,position);
-		
-	
-		
-		while(node!=null) {
-			if(node.getNext()!=null) {
-				if(track.contains(node.getNext())) 
-					return map.get(node.getNext());
-				else 
-				{
-					track.add(node.getNext());
-					position++;
-					map.put(node.getNext(),position);
+		while(fast_p.getNext() != null && fast_p.getNext().getNext()!= null) {
+				if(slow_p == fast_p && k!=0) {
+					isCycle = true;
+					break;
 				}
-			node = node.getNext();
+				slow_p = slow_p.getNext();
+				fast_p = fast_p.getNext().getNext();
+				k++;
 			}
+		
+		slow_p = head;
+		
+		if(isCycle) {
+			while(fast_p != slow_p) {
+				slow_p = slow_p.getNext();
+				fast_p = fast_p.getNext();
+				index++;
+			}
+			return index;
 		}
 		return -1;
 	}
