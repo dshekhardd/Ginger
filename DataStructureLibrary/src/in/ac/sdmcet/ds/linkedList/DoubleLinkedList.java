@@ -1,10 +1,10 @@
 package in.ac.sdmcet.ds.linkedList;
 
 
-class ListExceptions extends Exception{
+class ListOutOfBoundExceptions extends Exception{
 	
 	private String s;
-	ListExceptions(String s){
+	ListOutOfBoundExceptions(String s){
 		this.s = s;
 	}
 	@Override
@@ -43,7 +43,7 @@ public class DoubleLinkedList<T> implements LinkedList<T> {
 
 	//deleting the element from specified location specified
 	@Override
-	public T remove(int i) throws ListExceptions {
+	public T remove(int i) throws ListOutOfBoundExceptions {
 	    int myItr=1,size=1;
 		DoubleLinkedNode<T> dump = null;
 		DoubleLinkedNode<T> temp1 = null;
@@ -51,16 +51,16 @@ public class DoubleLinkedList<T> implements LinkedList<T> {
 		DoubleLinkedNode<T> trav = null;
 		
 		if(i < size) 
-			throw new ListExceptions("location "+i+" doesn't exists");
+			throw new ListOutOfBoundExceptions("location "+i+" doesn't exists");
 		for(trav=head;trav != null;trav=trav.getNext()) 
 			size += 1; 
 		if(i >= size) 
-			throw new ListExceptions("location "+i+" doesn't exists");
+			throw new ListOutOfBoundExceptions("location "+i+" doesn't exists");
 		
 		//if there's only 1 element in the list
 		if(i == 1 && head.getNext()==null)  {
 			head = null;
-			throw new ListExceptions("You can't further remove elements, you emptied the list!");
+			throw new ListOutOfBoundExceptions("You can't further remove elements, you emptied the list!");
 		}
 		
 		//when first element from the list has to be deleted
@@ -98,21 +98,21 @@ public class DoubleLinkedList<T> implements LinkedList<T> {
 	
 	//get element from a specified location
 	@Override
-	public T get(int i) throws ListExceptions {
+	public T get(int i) throws ListOutOfBoundExceptions {
 		int myItr=1, size = 1;
 		DoubleLinkedNode<T> search = head;
 		DoubleLinkedNode<T> trav = null;
 		
 		if(i < size)
-			throw new ListExceptions("location "+i+" doesn't exists");
+			throw new ListOutOfBoundExceptions("location "+i+" doesn't exists");
 		for(trav=head;trav != null;trav=trav.getNext())
 			size += 1; 	
 		if(i > size) 
-			throw new ListExceptions("location "+i+" doesn't exists");
+			throw new ListOutOfBoundExceptions("location "+i+" doesn't exists");
 
 		
 		if(head == null) {
-			throw new ListExceptions("List is empty");
+			throw new ListOutOfBoundExceptions("List is empty");
 		}
 		
 		for(myItr=1; myItr < i; myItr++) {
@@ -120,6 +120,51 @@ public class DoubleLinkedList<T> implements LinkedList<T> {
 		}
 		
 		return search.getData();
+	}
+	
+	
+	@Override
+	public boolean hasCycle() {
+		DoubleLinkedNode<T> slow = null;
+		DoubleLinkedNode<T> fast = null;
+	    int itr;
+	    
+	    if(head == null || head.getNext() == null)
+	    	return false;
+	    
+		for(slow=head, fast = head, itr=0;fast != null && fast.getNext() != null ;itr++,slow=slow.getNext(),fast=fast.getNext().getNext()) {
+			if(itr!=0 && slow == fast) { 
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	
+	@Override
+	public int cycleIndex() {
+		
+		DoubleLinkedNode<T> slow = null;
+		DoubleLinkedNode<T> fast = null;
+	    int index;
+	    
+	    if(head == null || head.getNext() == null)
+	    	return -1;
+	    
+		for(slow=head, fast = head, index=0;fast != null && fast.getNext() != null ;index++,slow=slow.getNext(),fast=fast.getNext().getNext()) {
+			if(index!=0 && slow == fast) { 
+				slow = head;
+				index=0;
+				while (slow != fast) { 
+			        slow = slow.getNext(); 
+			        fast = fast.getNext();
+			        index++;
+			    } 	  
+			    return index;
+			}
+		}
+		 return -1; 
+		
 	}
 
 }

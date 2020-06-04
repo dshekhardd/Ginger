@@ -10,7 +10,11 @@ package in.ac.sdmcet.ds.linkedList;
 interface LinkedList<T> {
 	public void add(T data);
 
-	public T remove(int i) throws ListExceptions;
+	public T remove(int i) throws ListOutOfBoundExceptions;
 
-	public T get(int i) throws ListExceptions;
+	public T get(int i) throws ListOutOfBoundExceptions;
+	
+	public boolean hasCycle();
+	
+	public int cycleIndex();
 }
